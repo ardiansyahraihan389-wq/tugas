@@ -1,28 +1,31 @@
 <?php
 header('Content-Type: application/json');
-// Menggunakan error reporting agar kita tahu jika ada masalah lain
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 require_once 'koneksi.php';
 
-if (!$conn) {
-    echo json_encode(["error" => "Koneksi database gagal"]);
-    exit;
-}
-
-// Ambil data dengan nama unik saja
-$sql = "SELECT nama, nim, jurusan FROM mahasiswa GROUP BY nim ORDER BY id DESC";
+// 1. Ambil SEMUA data tanpa filter SQL yang aneh-aneh (biar tidak error)
+$sql = "SELECT * FROM mahasiswa ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 
-$mahasiswa = array();
-
+$data_mentah = array();
 if ($result) {
     while($row = mysqli_fetch_assoc($result)) {
-        $mahasiswa[] = $row;
+        $data_mentah[] = $row;
     }
 }
 
-echo json_encode($mahasiswa, JSON_PRETTY_PRINT);
+// 2. Filter duplikat pakai PHP (Sangat aman, tidak akan kena sql_mode error)
+$hasil_akhir = array();
+$nim_sudah_ada = array();
+
+foreach ($data_mentah as $mhs) {
+    // Jika NIM belum pernah tercatat, masukkan ke hasil
+    if (!in_array($mhs['nim'], $nim_sudah_ada)) {
+        $nim_sudah_ada[] = $mhs['nim'];
+        $hasil_akhir[] = $mhs;
+    }
+}
+
+// 3. Kirim data yang sudah bersih
+echo json_encode($hasil_akhir, JSON_PRETTY_PRINT);
 mysqli_close($conn);
 ?>
