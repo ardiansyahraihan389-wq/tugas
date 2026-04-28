@@ -1,11 +1,12 @@
 <?php
 header('Content-Type: application/json');
-require_once 'koneksi.php'; // Mengambil koneksi SSL yang sudah kita buat
+require_once 'koneksi.php';
 
-$sql = "SELECT * FROM mahasiswa";
+// Menampilkan data terbaru di atas
+$sql = "SELECT * FROM mahasiswa ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 
-$mahasiswa = [];
+$mahasiswa = array();
 
 if ($result) {
     while($row = mysqli_fetch_assoc($result)) {
@@ -13,6 +14,7 @@ if ($result) {
     }
 }
 
-echo json_encode($mahasiswa);
+// Menggunakan JSON_PRETTY_PRINT agar tampilan rapi di browser
+echo json_encode($mahasiswa, JSON_PRETTY_PRINT);
 mysqli_close($conn);
 ?>
