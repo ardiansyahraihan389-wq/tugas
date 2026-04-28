@@ -2,8 +2,8 @@
 header('Content-Type: application/json');
 require_once 'koneksi.php';
 
-// Menampilkan data terbaru di atas
-$sql = "SELECT * FROM mahasiswa ORDER BY id DESC";
+// Menggunakan DISTINCT agar data yang sama persis tidak muncul dua kali
+$sql = "SELECT DISTINCT nama, nim, jurusan FROM mahasiswa ORDER BY nama ASC";
 $result = mysqli_query($conn, $sql);
 
 $mahasiswa = array();
@@ -14,7 +14,6 @@ if ($result) {
     }
 }
 
-// Menggunakan JSON_PRETTY_PRINT agar tampilan rapi di browser
 echo json_encode($mahasiswa, JSON_PRETTY_PRINT);
 mysqli_close($conn);
 ?>
