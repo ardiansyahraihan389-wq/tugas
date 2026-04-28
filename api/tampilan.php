@@ -6,74 +6,82 @@
     <title>Daftar Mahasiswa</title>
     <style>
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: Arial, sans-serif; 
             background-color: #121212; 
             color: white; 
-            text-align: center; 
             padding: 20px; 
+            text-align: center; 
         }
-        .container { width: 90%; max-width: 800px; margin: auto; }
-        h1 { margin-bottom: 20px; }
+        table { 
+            width: 80%; 
+            margin: 20px auto; 
+            border-collapse: collapse; 
+            background-color: #1e1e1e; 
+        }
+        th, td { 
+            padding: 12px; 
+            border: 1px solid #333; 
+        }
+        th { 
+            background-color: #333; 
+            color: #00d4ff; 
+        }
+        tr:nth-child(even) { 
+            background-color: #252525; 
+        }
         .btn-tambah { 
-            display: inline-block;
+            display: inline-block; 
+            margin-bottom: 20px; 
             padding: 10px 20px; 
-            background: #00d4ff; 
+            background-color: #00d4ff; 
             color: #121212; 
             text-decoration: none; 
             border-radius: 5px; 
             font-weight: bold; 
-            margin-bottom: 25px;
         }
-        .btn-tambah:hover { background: #008fb3; }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            background-color: #1e1e1e; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        .btn-tambah:hover { 
+            background-color: #0099cc; 
         }
-        th, td { padding: 15px; border: 1px solid #333; text-align: left; }
-        th { background-color: #333; color: #00d4ff; }
-        tr:nth-child(even) { background-color: #252525; }
-        tr:hover { background-color: #2c2c2c; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Daftar Mahasiswa</h1>
-        <a href="/tambah" class="btn-tambah">[+ Tambah Data]</a>
+    <h1>Daftar Mahasiswa</h1>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>NIM</th>
-                    <th>Jurusan</th>
-                </tr>
-            </thead>
-            <tbody id="isi-tabel">
-                <tr>
-                    <td colspan="4" style="text-align:center;">Memuat data...</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <a href="/tambah" class="btn-tambah">[+ Tambah Data]</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Jurusan</th>
+            </tr>
+        </thead>
+        <tbody id="data-mahasiswa">
+            <tr>
+                <td colspan="4" style="text-align:center;">Memuat data...</td>
+            </tr>
+        </tbody>
+    </table>
 
     <script>
-        async function ambilData() {
+        async function muatData() {
             try {
-                // Memanggil rute baru sesuai vercel.json kamu
+                // Mengambil data dari rute API yang baru
                 const respon = await fetch('/api_mahasiswa.php');
                 
-                if (!respon.ok) throw new Error('Gagal memuat API');
+                if (!respon.ok) throw new Error('API tidak ditemukan');
                 
                 const data = await respon.json();
-                const tabel = document.getElementById('isi-tabel');
+                
+                // Menghubungkan ke ID tbody "data-mahasiswa"
+                const tabel = document.getElementById('data-mahasiswa');
                 tabel.innerHTML = ''; 
 
                 if (data.length === 0) {
-                    tabel.innerHTML = '<tr><td colspan="4" style="text-align:center;">Belum ada data mahasiswa.</td></tr>';
+                    tabel.innerHTML = '<tr><td colspan="4">Belum ada data di database.</td></tr>';
                     return;
                 }
 
@@ -88,14 +96,14 @@
                     `;
                 });
             } catch (error) {
-                console.error("Error:", error);
-                document.getElementById('isi-tabel').innerHTML = 
-                    '<tr><td colspan="4" style="text-align:center; color:red;">Gagal mengambil data dari database.</td></tr>';
+                console.error("Gagal memuat data:", error);
+                document.getElementById('data-mahasiswa').innerHTML = 
+                    '<tr><td colspan="4" style="color:red;">Gagal mengambil data dari database. Cek koneksi atau API.</td></tr>';
             }
         }
 
-        // Jalankan fungsi otomatis saat halaman dibuka
-        ambilData();
+        // Jalankan fungsi saat halaman dibuka
+        muatData();
     </script>
 </body>
 </html>
