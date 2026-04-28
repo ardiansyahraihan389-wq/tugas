@@ -1,18 +1,16 @@
 <?php
 $host = "gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com";
-$user = "2JyXBCpdbGQ96PV.root";
-$pass = "Ukkz7GGZOO3gON9";
+$user = "2JyXBCpdbGQ96PV.root"; // Pastikan ini username terbaru dari tombol 'Connect'
+$pass = "XC83dQLpkDBS5c3q"; 
 $db   = "test";
 $port = 4000;
 
-// Membuat objek koneksi
 $conn = mysqli_init();
-
-// Menambahkan pengaturan SSL (Wajib untuk TiDB Serverless)
 mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
 
-// Melakukan koneksi dengan flag SSL
+// Tambahkan error reporting agar terlihat di log jika gagal
 if (!mysqli_real_connect($conn, $host, $user, $pass, $db, $port, NULL, MYSQLI_CLIENT_SSL)) {
-    die("Koneksi gagal: " . mysqli_connect_error());
+    header('Content-Type: application/json');
+    die(json_encode(["error" => "Koneksi gagal: " . mysqli_connect_error()]));
 }
 ?>
