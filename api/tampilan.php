@@ -2,52 +2,61 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Data Mahasiswa - Project Cloud</title>
+    <title>Data Mahasiswa</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #121212; color: white; padding: 50px; }
-        h2 { text-align: center; color: #00d4ff; }
+        body { font-family: Arial, sans-serif; background-color: #121212; color: white; padding: 20px; text-align: center; }
         table { width: 80%; margin: 20px auto; border-collapse: collapse; background-color: #1e1e1e; }
-        th, td { border: 1px solid #333; padding: 12px; text-align: left; }
-        th { background-color: #00d4ff; color: black; }
-        tr:nth-child(even) { background-color: #2a2a2a; }
-        tr:hover { background-color: #333; }
+        th, td { padding: 12px; border: 1px solid #333; }
+        th { background-color: #333; color: #00d4ff; }
+        tr:nth-child(even) { background-color: #252525; }
+        .btn-tambah { display: inline-block; margin-bottom: 20px; padding: 10px 20px; background-color: #00d4ff; color: #121212; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-tambah:hover { background-color: #0099cc; }
     </style>
 </head>
 <body>
 
-<h2>Daftar Mahasiswa (TiDB Cloud + Vercel)</h2>
+    <h1>Daftar Mahasiswa</h1>
+    
+    <a href="/tambah" class="btn-tambah">[+ Tambah Data]</a>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>NIM</th>
-            <th>Jurusan</th>
-        </tr>
-    </thead>
-    <tbody id="data-tabel">
-        </tbody>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Jurusan</th>
+            </tr>
+        </thead>
+        <tbody id="data-mahasiswa">
+            </tbody>
+    </table>
 
-<script>
-    // Mengambil data dari api_mahasiswa.php
-    fetch('api/api_mahasiswa.php')
-        .then(response => response.json())
-        .then(data => {
-            const tableBody = document.getElementById('data-tabel');
-            data.forEach(mhs => {
-                const row = `<tr>
-                    <td>${mhs.id}</td>
-                    <td>${mhs.nama}</td>
-                    <td>${mhs.nim}</td>
-                    <td>${mhs.jurusan}</td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            });
-        })
-        .catch(error => console.error('Error:', error));
-</script>
+    <script>
+        async function muatData() {
+            try {
+                // Memanggil rute /api-data sesuai vercel.json
+                const respon = await fetch('/api-data');
+                const data = await respon.json();
+                const tabel = document.getElementById('data-mahasiswa');
+                tabel.innerHTML = '';
 
+                data.forEach((mhs, index) => {
+                    tabel.innerHTML += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${mhs.nama}</td>
+                            <td>${mhs.nim}</td>
+                            <td>${mhs.jurusan}</td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error("Gagal memuat data:", error);
+            }
+        }
+
+        muatData();
+    </script>
 </body>
 </html>
