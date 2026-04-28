@@ -13,6 +13,6 @@ if ($result) {
     }
 }
 
-echo json_encode($mahasiswa);
+echo json_encode($mahasiswa, JSON_PRETTY_PRINT);
 mysqli_close($conn);
 ?>
