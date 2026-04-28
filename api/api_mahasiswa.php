@@ -2,8 +2,8 @@
 header('Content-Type: application/json');
 require_once 'koneksi.php';
 
-// Menggunakan DISTINCT agar data yang sama persis tidak muncul dua kali
-$sql = "SELECT DISTINCT nama, nim, jurusan FROM mahasiswa ORDER BY nama ASC";
+// Menambahkan GROUP BY agar nama yang sama hanya muncul satu kali
+$sql = "SELECT * FROM mahasiswa GROUP BY nama, nim ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 
 $mahasiswa = array();
