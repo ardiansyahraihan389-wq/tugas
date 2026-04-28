@@ -10,6 +10,10 @@
       "dest": "/api/tampilan.php"
     },
     {
+      "src": "/tambah",
+      "dest": "/api/tambah.php"
+    },
+    {
       "src": "/api-data",
       "dest": "/api/api_mahasiswa.php"
     }
