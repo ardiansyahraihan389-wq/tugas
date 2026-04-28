@@ -1,17 +1,11 @@
 <?php
 header('Content-Type: application/json');
-include 'koneksi.php';
-
-// Pastikan koneksi tidak error
-if (!$conn) {
-    echo json_encode(["error" => "Koneksi gagal"]);
-    exit;
-}
+require_once 'koneksi.php'; // Menggunakan require_once lebih aman
 
 $sql = "SELECT * FROM mahasiswa";
 $result = mysqli_query($conn, $sql);
 
-$mahasiswa = array();
+$mahasiswa = [];
 
 if ($result) {
     while($row = mysqli_fetch_assoc($result)) {
@@ -19,7 +13,6 @@ if ($result) {
     }
 }
 
-// Ini yang akan tampil di /api-data
 echo json_encode($mahasiswa);
 mysqli_close($conn);
 ?>
