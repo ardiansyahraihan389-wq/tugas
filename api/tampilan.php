@@ -36,7 +36,7 @@
         async function muatData() {
             try {
                 // Memanggil rute /api-data sesuai vercel.json
-                const respon = await fetch('/api-data');
+                const respon = await fetch('/api_mahasiswa.php');
                 const data = await respon.json();
                 const tabel = document.getElementById('data-mahasiswa');
                 tabel.innerHTML = '';
