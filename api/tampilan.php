@@ -50,7 +50,7 @@
     <script>
         async function muatData() {
             try {
-                const respon = await fetch('https://willdone.wuaze.com/api_mahasiswa.php');
+                const respon = await fetch('/api_mahasiswa.php');
                 const data = await respon.json();
                 const tabel = document.getElementById('data-mahasiswa');
                 tabel.innerHTML = ''; 
