@@ -5,6 +5,8 @@ require_once 'koneksi.php';
 $soal = isset($_GET['soal']) ? $_GET['soal'] : '';
 $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : '';
 
+$sql = "";
+
 switch ($soal) {
     case '1': 
         $sql = "SELECT * FROM buku";
@@ -37,9 +39,15 @@ switch ($soal) {
 
 $result = mysqli_query($conn, $sql);
 $data = array();
+
 if ($result) {
-    while($row = mysqli_fetch_assoc($result)) { $data[] = $row; }
+    while($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
     echo json_encode($data, JSON_PRETTY_PRINT);
+} else {
+    echo json_encode(["status" => "error", "message" => mysqli_error($conn)]);
 }
+
 mysqli_close($conn);
 ?>
