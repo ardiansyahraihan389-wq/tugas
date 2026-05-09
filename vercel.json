@@ -2,20 +2,13 @@
   "functions": {
     "api/*.php": {
       "runtime": "vercel-php@0.7.2"
-    },
-    "*.php": {
-      "runtime": "vercel-php@0.7.2"
     }
   },
   "routes": [
-   {
-  {
-  "functions": {
-    "api/*.php": {
-      "runtime": "vercel-php@0.7.2"
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1",
+      "headers": { "cache-control": "no-cache" }
     }
-  },
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" }
   ]
 }
