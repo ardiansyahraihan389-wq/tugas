@@ -8,13 +8,10 @@
     }
   },
   "routes": [
-    {
-      "src": "/(api/.*\\.php)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*\\.php)",
-      "dest": "/$1"
+   {
+  "functions": {
+    "api/*.php": {
+      "runtime": "vercel-php@0.7.2"
     }
-  ]
+  }
 }
