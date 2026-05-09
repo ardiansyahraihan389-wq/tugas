@@ -14,16 +14,8 @@
       "dest": "/api/api_mahasiswa.php"
     },
     {
-      "src": "/api/uts.php",
-      "dest": "/api/uts.php"
-    },
-    {
-      "src": "/api/api_mahasiswa.php",
-      "dest": "/api/api_mahasiswa.php"
-    },
-    {
-      "src": "/api/tampilan.php",
-      "dest": "/api/tampilan.php"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     }
   ]
 }
