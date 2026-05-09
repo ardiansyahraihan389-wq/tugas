@@ -16,19 +16,16 @@ switch ($soal) {
         break;
     case '3': 
         $sql = "SELECT p.nama_peminjam, b.judul_buku, b.penulis, p.tanggal_pinjam 
-                FROM peminjaman p 
-                JOIN buku b ON p.buku_id = b.id";
+                FROM peminjaman p JOIN buku b ON p.buku_id = b.id";
         break;
     case '4': 
         $sql = "SELECT p.nama_peminjam, b.judul_buku, b.penulis, p.tanggal_pinjam 
-                FROM peminjaman p 
-                JOIN buku b ON p.buku_id = b.id 
+                FROM peminjaman p JOIN buku b ON p.buku_id = b.id 
                 WHERE b.tahun_terbit = '$tahun'";
         break;
     case '5': 
         $sql = "SELECT b.judul_buku, COUNT(*) as total_dipinjam 
-                FROM peminjaman p 
-                JOIN buku b ON p.buku_id = b.id 
+                FROM peminjaman p JOIN buku b ON p.buku_id = b.id 
                 WHERE p.tanggal_pinjam BETWEEN '2026-05-01' AND '2026-05-07'
                 GROUP BY b.judul_buku";
         break;
