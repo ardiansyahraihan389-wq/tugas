@@ -4,18 +4,14 @@
       "runtime": "vercel-php@0.7.2"
     }
   },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/tampil",
-      "dest": "/api/tampilan.php"
+      "source": "/tampil",
+      "destination": "/api/tampilan.php"
     },
     {
-      "src": "/api_mahasiswa.php",
-      "dest": "/api/api_mahasiswa.php"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "source": "/api_mahasiswa.php",
+      "destination": "/api/api_mahasiswa.php"
     }
   ]
 }
