@@ -9,9 +9,12 @@
   },
   "routes": [
     {
-  "functions": {
-    "api/*.php": {
-      "runtime": "vercel-php@0.7.2"
+      "src": "/api/(.*)",
+      "dest": "/api/$1.php"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1.php"
     }
-  }
+  ]
 }
