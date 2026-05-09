@@ -9,12 +9,20 @@
   },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.php"
+      "src": "/api/tampilan",
+      "dest": "/api/tampilan.php"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1.php"
+      "src": "/api/api_mahasiswa",
+      "dest": "/api/api_mahasiswa.php"
+    },
+    {
+      "src": "/api/uts",
+      "dest": "/api/uts.php"
+    },
+    {
+      "src": "/tampil",
+      "dest": "/api/tampilan.php"
     }
   ]
 }
