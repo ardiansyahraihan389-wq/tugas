@@ -2,27 +2,16 @@
   "functions": {
     "api/*.php": {
       "runtime": "vercel-php@0.7.2"
-    },
-    "*.php": {
-      "runtime": "vercel-php@0.7.2"
     }
   },
   "routes": [
     {
-      "src": "/api/tampilan",
-      "dest": "/api/tampilan.php"
-    },
-    {
-      "src": "/api/api_mahasiswa",
-      "dest": "/api/api_mahasiswa.php"
-    },
-    {
-      "src": "/api/uts",
-      "dest": "/api/uts.php"
-    },
-    {
       "src": "/tampil",
       "dest": "/api/tampilan.php"
+    },
+    {
+      "src": "/api_mahasiswa.php",
+      "dest": "/api/api_mahasiswa.php"
     }
   ]
 }
