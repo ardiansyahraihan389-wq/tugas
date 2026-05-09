@@ -9,12 +9,12 @@
   },
   "routes": [
     {
-      "src": "/uts_api.php",
-      "dest": "/uts_api.php"
+      "src": "/(api/.*\\.php)",
+      "dest": "/$1"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/(.*\\.php)",
+      "dest": "/$1"
     }
   ]
 }
