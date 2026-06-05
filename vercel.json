@@ -1,17 +1,21 @@
 {
   "functions": {
     "api/*.php": {
-      "runtime": "vercel-php@0.7.2"
+      "runtime": "vercel-php@0.7.1"
+    },
+    "api/wisuda/*.php": {
+      "runtime": "vercel-php@0.7.1"
     }
   },
-  "rewrites": [
-    {
-      "source": "/tampil",
-      "destination": "/api/tampilan.php"
-    },
-    {
-      "source": "/api_mahasiswa.php",
-      "destination": "/api/api_mahasiswa.php"
-    }
+  "routes": [
+    { "src": "/", "dest": "/api/index.php" },
+    { "src": "/tampil.php", "dest": "/api/tampil.php" },
+    { "src": "/api_mahasiswa.php", "dest": "/api/api_mahasiswa.php" },
+    { "src": "/wisuda/api_mahasiswa.php", "dest": "/api/wisuda/api_mahasiswa.php" },
+    { "src": "/wisuda/api_periode.php", "dest": "/api/wisuda/api_periode.php" },
+    { "src": "/wisuda/api_staf.php", "dest": "/api/wisuda/api_staf.php" },
+    { "src": "/wisuda/api_pendaftaran.php", "dest": "/api/wisuda/api_pendaftaran.php" },
+    { "src": "/wisuda/(.*\\.php)", "dest": "/api/wisuda/$1" },
+    { "src": "/(.*\\.php)", "dest": "/api/$1" }
   ]
 }
